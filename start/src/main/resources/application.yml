@@ -1,0 +1,55 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 10000
+  connection-timeout: 5000ms
+  servlet:
+    context-path: /freedom
+### spring配置
+spring:
+  profiles:
+    active: dev
+  messages:
+    encoding: UTF-8
+  mvc:
+    throw-exception-if-no-handler-found: true #出现错误时, 直接抛出异常
+  resources:
+    add-mappings: false  #不要为我们工程中的资源文件建立映射
+  ## jackson时间格式化
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  ## 文件上传配置
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+
+# 项目配置
+freedom:
+  #druid
+  druidUserName: admin  #管理员账号
+  druidPassword: admin  #管理员密码
+  allows: 127.0.0.1,127.0.0.2 #白名单
+  deny: #黑名单多个,分割
+  #Swagger
+  swaggerEnable: true #是否开启
+  swaggerPath: com.freedom #扫描路径
+  swaggerTitle: 文档标题
+  swaggerDescription: 文档描述
+  swaggerServiceUrl: /freedom
+  swaggerUserName: liberc
+  swaggerUserUrl:
+  swaggerUserEmail: 1135621750@qq.com
+  swaggerVersion: 1.0
+  #jwt
+  jwtSecret: freedom
+  jwtExpire: 300000
+  jwtHeader: token
+  #Snowflake id生成策略
+  workerId: 1 #小于31大于0
+  datacenterId: 1
+  isUseSystemClock: false #系统时钟使用

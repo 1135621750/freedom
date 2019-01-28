@@ -1,0 +1,14 @@
+
+.idea
+*.iws
+*.iml
+*.ipr
+/logs/
+/META-INF/
+/out/
+/target/
+*.MF
+showdoc_api.sh
+*/target/
+*.test
+*.jar
