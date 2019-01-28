@@ -65,6 +65,8 @@ public class Generator {
         getTable(bean);
         getColumns(bean);
         generate(bean.getModelPackagePath() + bean.getModelNameUpperCamel(), "java", "model.ftl", bean);
+        generate(bean.getMapperPackagePath() + bean.getModelNameUpperCamel()+"Mapper", "java", "mapper.ftl", bean);
+        generate(bean.getXmlPath() + bean.getModelNameUpperCamel()+"Mapper", "xml", "mapperXML.ftl", bean);
     }
     //查询表的数据
     public static void getTable(JavaBeanGenerator bean){
@@ -72,7 +74,7 @@ public class Generator {
             Connection conn = getConnection();
             ResultSet rs = conn.prepareStatement(
                     "SELECT TABLE_NAME,TABLE_COMMENT FROM information_schema.TABLES "
-                            +"WHERE TABLE_SCHEMA = '"+JDBC_URL.split("/")[3]+"' AND TABLE_NAME = '"+bean.getTableName()+"'"
+                            +"WHERE TABLE_SCHEMA = (select database()) AND TABLE_NAME = '"+bean.getTableName()+"'"
             ).executeQuery();
             while (rs.next()){
                 if(!bean.getTableName().equals(rs.getString("TABLE_NAME"))){
@@ -92,18 +94,16 @@ public class Generator {
             Connection conn = getConnection();
             ResultSet rs = conn.prepareStatement(
                     "SELECT COLUMN_NAME,DATA_TYPE,COLUMN_COMMENT FROM information_schema.COLUMNS "
-                            +"WHERE TABLE_SCHEMA = '"+JDBC_URL.split("/")[3]+"' AND TABLE_NAME = '"+bean.getTableName()+"'"
+                            +"WHERE TABLE_SCHEMA = (select database()) AND TABLE_NAME = '"+bean.getTableName()+"'"
             ).executeQuery();
             List<ColumnClass> columnClassList = new ArrayList<>();
             ColumnClass columnClass = null;
+            StringBuffer baseColumnList = new StringBuffer();
             while (rs.next()){
-                //id字段略过
-                if(rs.getString("COLUMN_NAME").equals("ID")) {
-                    continue;
-                }
                 columnClass = new ColumnClass();
                 //获取字段名称
                 columnClass.setColumnName(rs.getString("COLUMN_NAME"));
+                baseColumnList.append(rs.getString("COLUMN_NAME")+",");
                 //获取字段类型
                 columnClass.setColumnType(rs.getString("DATA_TYPE"));
                 //转换字段名称，如 sys_name 变成 SysName
@@ -112,7 +112,17 @@ public class Generator {
                 columnClass.setColumnComment(rs.getString("COLUMN_COMMENT"));
                 columnClassList.add(columnClass);
             }
+            //过滤date类型变为TIMESTAMP
+            columnClassList.stream().forEach(o -> {
+                if(o.getColumnType().equals("date")
+                        || o.getColumnType().equals("datetime")){
+                    o.setColumnType("timestamp");
+                }
+            });
             bean.setColumnsList(columnClassList);
+            //添加字段的通用
+            baseColumnList.deleteCharAt(baseColumnList.length() -1);
+            bean.setBaseColumnList(baseColumnList.toString());
         }catch (SQLException e){
             log.info("查询列信息失败",e);
         }

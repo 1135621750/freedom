@@ -21,9 +21,10 @@ public class JavaBeanGenerator implements Serializable {
     private String modelNameUpperCamel;//驼峰后的名称 TableName
     private String modelNameLowerCamel;//驼峰后名称 tableName
     private List<Map<String,String>> types;
+    private String baseColumnList;
 
-    private String javaPath = "src/main/java"; // java文件路径
-    private String resourcesPath = "src/main/resources";// 资源文件路径
+    private String javaPath = "generator/src/main/java"; // java文件路径
+    private String resourcesPath = "generator/src/main/resources";// 资源文件路径
     private String basePackage = "com.freedom.admin";//项目包路径
     // 生成的包路径
     private String webPackage = basePackage + ".web";
@@ -36,7 +37,7 @@ public class JavaBeanGenerator implements Serializable {
     private String modelPackagePath = javaPath + packageConvertPath(modelPackage);
     private String mapperPackagePath = javaPath + packageConvertPath(mapperPackage);
     //xml
-    private String xml = packageConvertPath(resourcesPath + "/mybatis/mapper");
+    private String xmlPath = resourcesPath + packageConvertPath("/mybatis/mapper");
 
     //com.demo转换/com/demo/
     private static String packageConvertPath(String packageName) {

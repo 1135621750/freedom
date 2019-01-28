@@ -6,6 +6,9 @@ import lombok.ToString;
 
 import java.util.Date;
 
+/**
+ * 统一数据库必有字段
+ */
 @Data
 public class BaseModel {
     private Long id;//全局主键
