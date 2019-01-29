@@ -24,11 +24,11 @@ public interface BaseMapper<T,ID> {
     List<T> findByListDynamic(T entity);
 
     /**
-     * 批量动态新增
-     * @param entity 表空间对应实体
+     * 批量全字段新增
+     * @param list 表空间对应实体
      * @return
      */
-    int insertListModel(List<T> entity);
+    int insertListModel(List<T> list);
 
     /**
      * 动态新增

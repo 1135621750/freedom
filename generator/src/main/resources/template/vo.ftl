@@ -1,7 +1,7 @@
-package ${modelPackage};
+package ${voPackage};
 
+import com.freedom.core.pojo.Limit;
 import lombok.Data;
-import com.freedom.core.pojo.BaseModel;
 
 /**
 * ${tableNotes}
@@ -9,7 +9,7 @@ import com.freedom.core.pojo.BaseModel;
 * @date ${date}
 */
 @Data
-public class ${modelNameUpperCamel} extends BaseModel{
+public class ${modelNameUpperCamel}VO extends Limit{
 
 <#if columnsList?exists>
     <#list columnsList as model>

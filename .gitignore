@@ -12,3 +12,4 @@ showdoc_api.sh
 */target/
 *.test
 *.jar
+*/logs/

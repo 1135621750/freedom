@@ -17,7 +17,11 @@
 
 
     <sql id="Base_Column_List">
-        ${baseColumnList}
+    <#if columnsList?exists>
+        <#list columnsList as model>
+            <#if model_has_next>${model.columnName},<#else>${model.columnName}</#if>
+        </#list>
+    </#if>
     </sql>
 
     <#--查询一条-->
@@ -35,33 +39,33 @@
         <where>
         <#if columnsList?exists>
             <#list columnsList as model>
-            <if test="${model.changeColumnName} != null"> AND ${model.changeColumnName} = <#noParse>#</#noParse>{${model.changeColumnName},jdbcType=${model.columnType?upperCase}} </if>
+            <if test="${model.changeColumnName} != null"> AND ${model.columnName} = <#noParse>#</#noParse>{${model.changeColumnName},jdbcType=${model.columnType?upperCase}} </if>
             </#list>
         </#if>
         </where>
     </select>
 
     <#--批量新增-->
-    <insert id="insertListModel" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertListModel" parameterType="java.util.List">
         insert into ${tableName}
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-        <#if columnsList?exists>
-            <#list columnsList as model>
-            <if test="${model.changeColumnName} != null">
-            ${model.columnName},
-            </if>
-            </#list>
-        </#if>
-        </trim>
+        (
+    <#if columnsList?exists>
+        <#list columnsList as model>
+            <#if model_has_next>${model.columnName},<#else>${model.columnName}</#if>
+        </#list>
+    </#if>
+        )
         <trim prefix="values ">
             <foreach collection="list" item="item" index="index"
                      separator=",">
                 (
             <#if columnsList?exists>
                 <#list columnsList as model>
-                    <if test="${model.changeColumnName} != null">
-                <#noParse>#</#noParse>{${model.changeColumnName},jdbcType=${model.columnType?upperCase}},
-                    </if>
+                    <#if model_has_next>
+                <#noParse>#</#noParse>{item.${model.changeColumnName},jdbcType=${model.columnType?upperCase}},
+                    <#else>
+                <#noParse>#</#noParse>{item.${model.changeColumnName},jdbcType=${model.columnType?upperCase}}
+                    </#if>
                 </#list>
             </#if>
                 )
@@ -98,9 +102,12 @@
         <set>
         <#if columnsList?exists>
             <#list columnsList as model>
+                <#if model.columnName == "id">
+                <#else >
             <if test="${model.changeColumnName} != null">
-            ${model.changeColumnName} = <#noParse>#</#noParse>{${model.changeColumnName},jdbcType=${model.columnType?upperCase}},
+            ${model.columnName} = <#noParse>#</#noParse>{${model.changeColumnName},jdbcType=${model.columnType?upperCase}},
             </if>
+                </#if>
             </#list>
         </#if>
         </set>

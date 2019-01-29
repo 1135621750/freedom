@@ -31,11 +31,13 @@ public class JavaBeanGenerator implements Serializable {
     private String servicePackage = basePackage + ".service";
     private String modelPackage = basePackage + ".model";
     private String mapperPackage = basePackage + ".mapper";
+    private String voPackage = basePackage + ".vo";
     // 生成路径
     private String webPackagePath = javaPath + packageConvertPath(webPackage);
     private String servicePackagePath = javaPath + packageConvertPath(servicePackage);
     private String modelPackagePath = javaPath + packageConvertPath(modelPackage);
     private String mapperPackagePath = javaPath + packageConvertPath(mapperPackage);
+    private String voPackagePath = javaPath + packageConvertPath(voPackage);
     //xml
     private String xmlPath = resourcesPath + packageConvertPath("/mybatis/mapper");
 

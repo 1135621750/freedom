@@ -67,6 +67,9 @@ public class Generator {
         generate(bean.getModelPackagePath() + bean.getModelNameUpperCamel(), "java", "model.ftl", bean);
         generate(bean.getMapperPackagePath() + bean.getModelNameUpperCamel()+"Mapper", "java", "mapper.ftl", bean);
         generate(bean.getXmlPath() + bean.getModelNameUpperCamel()+"Mapper", "xml", "mapperXML.ftl", bean);
+        generate(bean.getServicePackagePath() + bean.getModelNameUpperCamel()+"Service", "java", "service.ftl", bean);
+        generate(bean.getVoPackagePath() + bean.getModelNameUpperCamel()+"VO", "java", "vo.ftl", bean);
+        generate(bean.getWebPackagePath() + bean.getModelNameUpperCamel()+"Controller", "java", "web.ftl", bean);
     }
     //查询表的数据
     public static void getTable(JavaBeanGenerator bean){
