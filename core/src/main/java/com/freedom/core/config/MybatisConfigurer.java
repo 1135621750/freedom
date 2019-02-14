@@ -24,7 +24,7 @@ public class MybatisConfigurer {
       factory.setTypeAliasesPackage("com.freedom.*.model");
       // 添加XML目录
       ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-      factory.setMapperLocations(resolver.getResources("classpath:mybatis/mapper/*.xml"));
+      factory.setMapperLocations(resolver.getResources("classpath:mybatis/mapper/*.xml"));//路径下没有文件会报错
       factory.setConfigLocation(resolver.getResource("classpath:mybatis-config.xml"));
       return factory.getObject();
    }

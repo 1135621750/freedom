@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.freedom.admin.mapper.SysRoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.freedom.admin.model.SysRole">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+        <result column="create_user" jdbcType="BIGINT" property="createUser" />
+        <result column="is_delete" jdbcType="BIT" property="isDelete" />
+        <result column="status" jdbcType="BIT" property="status" />
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+            id,
+            role_name,
+            remark,
+            create_time,
+            update_time,
+            update_user,
+            create_user,
+            is_delete,
+            status
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_role WHERE id = #{id}
+    </select>
+
+    <select id="findByListDynamic" resultMap="BaseResultMap" parameterType="com.freedom.admin.model.SysRole">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_role
+        <where>
+            <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+            <if test="roleName != null"> AND role_name = #{roleName,jdbcType=VARCHAR} </if>
+            <if test="remark != null"> AND remark = #{remark,jdbcType=VARCHAR} </if>
+            <if test="createTime != null"> AND create_time = #{createTime,jdbcType=TIMESTAMP} </if>
+            <if test="updateTime != null"> AND update_time = #{updateTime,jdbcType=TIMESTAMP} </if>
+            <if test="updateUser != null"> AND update_user = #{updateUser,jdbcType=BIGINT} </if>
+            <if test="createUser != null"> AND create_user = #{createUser,jdbcType=BIGINT} </if>
+            <if test="isDelete != null"> AND is_delete = #{isDelete,jdbcType=BIT} </if>
+            <if test="status != null"> AND status = #{status,jdbcType=BIT} </if>
+        </where>
+    </select>
+
+    <insert id="insertListModel" parameterType="java.util.List">
+        insert into sys_role
+        (
+            id,
+            role_name,
+            remark,
+            create_time,
+            update_time,
+            update_user,
+            create_user,
+            is_delete,
+            status
+        )
+        <trim prefix="values ">
+            <foreach collection="list" item="item" index="index"
+                     separator=",">
+                (
+                #{item.id,jdbcType=BIGINT},
+                #{item.roleName,jdbcType=VARCHAR},
+                #{item.remark,jdbcType=VARCHAR},
+                #{item.createTime,jdbcType=TIMESTAMP},
+                #{item.updateTime,jdbcType=TIMESTAMP},
+                #{item.updateUser,jdbcType=BIGINT},
+                #{item.createUser,jdbcType=BIGINT},
+                #{item.isDelete,jdbcType=BIT},
+                #{item.status,jdbcType=BIT}
+                )
+            </foreach>
+        </trim>
+    </insert>
+
+    <insert id="insertDynamic" parameterType="com.freedom.admin.model.SysRole">
+        insert into sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            id,
+            </if>
+            <if test="roleName != null">
+            role_name,
+            </if>
+            <if test="remark != null">
+            remark,
+            </if>
+            <if test="createTime != null">
+            create_time,
+            </if>
+            <if test="updateTime != null">
+            update_time,
+            </if>
+            <if test="updateUser != null">
+            update_user,
+            </if>
+            <if test="createUser != null">
+            create_user,
+            </if>
+            <if test="isDelete != null">
+            is_delete,
+            </if>
+            <if test="status != null">
+            status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=BIT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateDynamic" parameterType="com.freedom.admin.model.SysRole">
+        update sys_role
+        <set>
+            <if test="roleName != null">
+            role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+            remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+            update_user = #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+            create_user = #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="isDelete != null">
+            is_delete = #{isDelete,jdbcType=BIT},
+            </if>
+            <if test="status != null">
+            status = #{status,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
+        DELETE FROM sys_role WHERE id = #{id}
+    </delete>
+
+    <delete id="batchRemove">
+        DELETE FROM sys_role WHERE id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+        #{id}
+        </foreach>
+    </delete>
+
+</mapper>

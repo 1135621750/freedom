@@ -34,7 +34,7 @@ public class ${modelNameUpperCamel}Service extends BaseService{
     *主键查询
     */
     public ${modelNameUpperCamel} queryById(Long id) throws Exception {
-    return ${modelNameLowerCamel}Mapper.findById(id);
+        return ${modelNameLowerCamel}Mapper.findById(id);
     }
     /*
     *新增

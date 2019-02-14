@@ -47,9 +47,7 @@ freedom:
   swaggerVersion: 1.0
   #jwt
   jwtSecret: freedom
-  jwtExpire: 300000
+  jwtExpire: 600000
   jwtHeader: token
-  #Snowflake id生成策略
-  workerId: 1 #小于31大于0
-  datacenterId: 1
-  isUseSystemClock: false #系统时钟使用
+  # redis 是否开启
+  redisOpen: false

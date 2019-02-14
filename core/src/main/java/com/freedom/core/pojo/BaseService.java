@@ -1,14 +1,11 @@
 package com.freedom.core.pojo;
 
-import com.freedom.core.utils.IdWorker;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.hutool.core.lang.Snowflake;
+import com.freedom.core.config.Constant;
 
 public class BaseService {
 
-    @Autowired
-    private IdWorker idWorker;
-
-    public Long getId(){
-        return idWorker.getNextId();
+    public static Long getNextId(){
+        return new Snowflake(Constant.WORKER_ID,Constant.DATACENTER_ID,Constant.IS_USESYSTEM_CLOCK).nextId();
     }
 }

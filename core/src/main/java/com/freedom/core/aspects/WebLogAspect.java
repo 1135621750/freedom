@@ -1,12 +1,15 @@
 package com.freedom.core.aspects;
 
 import com.alibaba.fastjson.JSONObject;
+import com.freedom.core.config.Constant;
+import com.freedom.core.config.MyYml;
 import com.freedom.core.pojo.BaseModel;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,7 +49,7 @@ public class WebLogAspect {
         HttpServletRequest request = attributes.getRequest();
         // 记录下请求内容
         log.info("-------------------请求开始-----------------");
-        log.info("请求头token : " + request.getHeader(""));
+        log.info("请求头token : " + request.getHeader(Constant.TOKE_NNAME));
         log.info("请求路径是 : " + request.getRequestURL().toString());
         log.info("请求方式是 : " + request.getMethod());
         log.info("IP : " + request.getRemoteAddr());

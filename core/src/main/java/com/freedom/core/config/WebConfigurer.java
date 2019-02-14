@@ -29,7 +29,7 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
      * 修改自定义消息转换器
      * @param converters
      */
-    @Override
+    /*@Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter4 converter = new FastJsonHttpMessageConverter4();
         converter.setSupportedMediaTypes(getSupportedMediaTypes());
@@ -74,7 +74,7 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
         supportedMediaTypes.add(MediaType.TEXT_PLAIN);
         supportedMediaTypes.add(MediaType.TEXT_XML);
         return supportedMediaTypes;
-    }
+    }*/
 
     /**
      * Swagger2 文档

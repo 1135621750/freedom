@@ -27,7 +27,7 @@ public class Generator {
     private static final String TEMPLATE_FILE_PATH = "D:\\webeclipse\\idea_ma\\freedom\\generator\\src\\main\\resources\\template";
 
     public static void main(String[] args){
-        getCode("sys_user");
+        getCode("sys_role","sys_menu");
     }
     public static void getCode(String... tableNames){
         for(String s : tableNames){
@@ -120,6 +120,13 @@ public class Generator {
                 if(o.getColumnType().equals("date")
                         || o.getColumnType().equals("datetime")){
                     o.setColumnType("timestamp");
+                }
+                //int类型变为INTEGER
+                if(o.getColumnType().equals("tinyint")
+                        || o.getColumnType().equals("smallint")
+                        || o.getColumnType().equals("mediumint")
+                        || o.getColumnType().equals("int")){
+                    o.setColumnType("integer");
                 }
             });
             bean.setColumnsList(columnClassList);

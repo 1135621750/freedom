@@ -28,7 +28,7 @@ import java.util.Set;
 @Aspect
 @Component
 @Slf4j
-@Order(2)
+@Order(3)
 public class ValidatedAspect {
 
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

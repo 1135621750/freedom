@@ -20,11 +20,6 @@
             <artifactId>admin</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.freedom</groupId>
-            <artifactId>generator</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
 

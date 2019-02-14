@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.freedom.admin.mapper.SysMenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.freedom.admin.model.SysMenu">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="pid" jdbcType="BIGINT" property="pid" />
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="perms" jdbcType="VARCHAR" property="perms" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+        <result column="create_user" jdbcType="BIGINT" property="createUser" />
+        <result column="is_delete" jdbcType="BIT" property="isDelete" />
+        <result column="status" jdbcType="BIT" property="status" />
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+            id,
+            pid,
+            menu_name,
+            url,
+            remark,
+            perms,
+            type,
+            icon,
+            sort,
+            create_time,
+            update_time,
+            update_user,
+            create_user,
+            is_delete,
+            status
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_menu WHERE id = #{id}
+    </select>
+
+    <select id="findByListDynamic" resultMap="BaseResultMap" parameterType="com.freedom.admin.model.SysMenu">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_menu
+        <where>
+            <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+            <if test="pid != null"> AND pid = #{pid,jdbcType=BIGINT} </if>
+            <if test="menuName != null"> AND menu_name = #{menuName,jdbcType=VARCHAR} </if>
+            <if test="url != null"> AND url = #{url,jdbcType=VARCHAR} </if>
+            <if test="remark != null"> AND remark = #{remark,jdbcType=VARCHAR} </if>
+            <if test="perms != null"> AND perms = #{perms,jdbcType=VARCHAR} </if>
+            <if test="type != null"> AND type = #{type,jdbcType=INTEGER} </if>
+            <if test="icon != null"> AND icon = #{icon,jdbcType=VARCHAR} </if>
+            <if test="sort != null"> AND sort = #{sort,jdbcType=INTEGER} </if>
+            <if test="createTime != null"> AND create_time = #{createTime,jdbcType=TIMESTAMP} </if>
+            <if test="updateTime != null"> AND update_time = #{updateTime,jdbcType=TIMESTAMP} </if>
+            <if test="updateUser != null"> AND update_user = #{updateUser,jdbcType=BIGINT} </if>
+            <if test="createUser != null"> AND create_user = #{createUser,jdbcType=BIGINT} </if>
+            <if test="isDelete != null"> AND is_delete = #{isDelete,jdbcType=BIT} </if>
+            <if test="status != null"> AND status = #{status,jdbcType=BIT} </if>
+        </where>
+    </select>
+
+    <insert id="insertListModel" parameterType="java.util.List">
+        insert into sys_menu
+        (
+            id,
+            pid,
+            menu_name,
+            url,
+            remark,
+            perms,
+            type,
+            icon,
+            sort,
+            create_time,
+            update_time,
+            update_user,
+            create_user,
+            is_delete,
+            status
+        )
+        <trim prefix="values ">
+            <foreach collection="list" item="item" index="index"
+                     separator=",">
+                (
+                #{item.id,jdbcType=BIGINT},
+                #{item.pid,jdbcType=BIGINT},
+                #{item.menuName,jdbcType=VARCHAR},
+                #{item.url,jdbcType=VARCHAR},
+                #{item.remark,jdbcType=VARCHAR},
+                #{item.perms,jdbcType=VARCHAR},
+                #{item.type,jdbcType=INTEGER},
+                #{item.icon,jdbcType=VARCHAR},
+                #{item.sort,jdbcType=INTEGER},
+                #{item.createTime,jdbcType=TIMESTAMP},
+                #{item.updateTime,jdbcType=TIMESTAMP},
+                #{item.updateUser,jdbcType=BIGINT},
+                #{item.createUser,jdbcType=BIGINT},
+                #{item.isDelete,jdbcType=BIT},
+                #{item.status,jdbcType=BIT}
+                )
+            </foreach>
+        </trim>
+    </insert>
+
+    <insert id="insertDynamic" parameterType="com.freedom.admin.model.SysMenu">
+        insert into sys_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            id,
+            </if>
+            <if test="pid != null">
+            pid,
+            </if>
+            <if test="menuName != null">
+            menu_name,
+            </if>
+            <if test="url != null">
+            url,
+            </if>
+            <if test="remark != null">
+            remark,
+            </if>
+            <if test="perms != null">
+            perms,
+            </if>
+            <if test="type != null">
+            type,
+            </if>
+            <if test="icon != null">
+            icon,
+            </if>
+            <if test="sort != null">
+            sort,
+            </if>
+            <if test="createTime != null">
+            create_time,
+            </if>
+            <if test="updateTime != null">
+            update_time,
+            </if>
+            <if test="updateUser != null">
+            update_user,
+            </if>
+            <if test="createUser != null">
+            create_user,
+            </if>
+            <if test="isDelete != null">
+            is_delete,
+            </if>
+            <if test="status != null">
+            status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=BIGINT},
+            </if>
+            <if test="menuName != null">
+                #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="perms != null">
+                #{perms,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=BIT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateDynamic" parameterType="com.freedom.admin.model.SysMenu">
+        update sys_menu
+        <set>
+            <if test="pid != null">
+            pid = #{pid,jdbcType=BIGINT},
+            </if>
+            <if test="menuName != null">
+            menu_name = #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+            url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+            remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="perms != null">
+            perms = #{perms,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+            type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="icon != null">
+            icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+            sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+            update_user = #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+            create_user = #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="isDelete != null">
+            is_delete = #{isDelete,jdbcType=BIT},
+            </if>
+            <if test="status != null">
+            status = #{status,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
+        DELETE FROM sys_menu WHERE id = #{id}
+    </delete>
+
+    <delete id="batchRemove">
+        DELETE FROM sys_menu WHERE id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+        #{id}
+        </foreach>
+    </delete>
+
+</mapper>

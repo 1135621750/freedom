@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -176,6 +177,22 @@ public class Utils {
 		return matcher.matches();
 	}
 
+	/**
+	 * 随机盐值
+	 * @param length
+	 * @return
+	 */
+	public static String getRandomString(int length) {
+		Random random = new Random();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < length; i++) {
+			// 获取ascii码中的字符 数字48-57 小写65-90 大写97-122
+			int range = random.nextInt(75)+48;
+			range = range<97?(range<65?(range>57?114-range:range):(range>90?180-range:range)):range;
+			sb.append((char)range);
+		}
+		return sb.toString();
+	}
 	public static void main(String args[]) throws Exception {
 //		List resList = Arrays.asList(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
 //				"13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",

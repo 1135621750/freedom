@@ -88,9 +88,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
         <#if columnsList?exists>
             <#list columnsList as model>
-                <if test="${model.changeColumnName} != null">
-                    <#noParse>#</#noParse>{${model.changeColumnName},jdbcType=${model.columnType?upperCase}},
-                </if>
+            <if test="${model.changeColumnName} != null">
+                <#noParse>#</#noParse>{${model.changeColumnName},jdbcType=${model.columnType?upperCase}},
+            </if>
             </#list>
         </#if>
         </trim>

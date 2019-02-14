@@ -1,4 +1,4 @@
-# freedom
+ # freedom
 
 #### 项目介绍
 
@@ -6,7 +6,7 @@
 >
 > freedom
 >
-> ​	core--------->一些配置
+> ​	core--------->核心以及工具
 >
 > ​	start--------->Spring Boot 启动器
 >
@@ -14,7 +14,7 @@
 >
 > ​	generator--------->代码生成器
 
-> 使用maven+springBoot+lombak+mybaits
+> 使用maven+springBoot+lombak+mybatis
 
 #### 搭建项目骨架
 > 增加全局请求日志
@@ -27,6 +27,7 @@
 > 增加统一返回值
 > 增加全局返回值枚举
 > 增加初始化资源
+> 增加jwt，shiro
 
 #### 代码生成器
 

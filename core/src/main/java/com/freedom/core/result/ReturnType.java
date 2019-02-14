@@ -11,8 +11,8 @@ public interface  ReturnType {
     public abstract String getCode();
 
     public abstract String getMsgKey();
-    
+
     public abstract String getMsgVal();
-    
+
 
 }

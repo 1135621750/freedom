@@ -23,8 +23,8 @@ public class JavaBeanGenerator implements Serializable {
     private List<Map<String,String>> types;
     private String baseColumnList;
 
-    private String javaPath = "generator/src/main/java"; // java文件路径
-    private String resourcesPath = "generator/src/main/resources";// 资源文件路径
+    private String javaPath = "admin/src/main/java"; // java文件路径
+    private String resourcesPath = "admin/src/main/resources";// 资源文件路径
     private String basePackage = "com.freedom.admin";//项目包路径
     // 生成的包路径
     private String webPackage = basePackage + ".web";

@@ -1,12 +1,5 @@
 package com.freedom.core.pojo;
 
-import cn.hutool.core.lang.Snowflake;
-import cn.hutool.core.util.IdcardUtil;
-import com.freedom.core.utils.IdWorker;
-
-import java.math.BigDecimal;
-import java.util.Date;
-
 /**
  * 初始化数据父类
  * @author Bai
