@@ -1,10 +1,12 @@
 package com.freedom.core.jwt;
 
+import com.alibaba.fastjson.util.TypeUtils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.freedom.core.config.MyYml;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,7 @@ import java.util.Map;
  * 使用用户密码加密
  */
 @Component
+@Slf4j
 public class JWTUtil {
 
     @Autowired
@@ -76,4 +79,5 @@ public class JWTUtil {
             return null;
         }
     }
+
 }

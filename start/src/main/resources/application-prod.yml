@@ -2,8 +2,8 @@
 spring:
   datasource:
   #时区问题重点标注serverTimezone=Hongkong执行show variables like "%time_zone%"; 查看时区设置
-  #JDBC连接时如果时区时间有差别建议设置为Hongkong,或者与数据库和程序时区对应
-    url: jdbc:mysql://127.0.0.1:3306/freedom?useUnicode=true&characterEncoding=UTF8&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Hongkong
+  #JDBC连接时如果时区时间有差别建议设置为HAsia/Shanghai,或者与数据库和程序时区对应
+    url: jdbc:mysql://127.0.0.1:3306/freedom?useUnicode=true&characterEncoding=UTF8&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver

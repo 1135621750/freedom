@@ -48,7 +48,7 @@ public class ExceptionHandle {
 	@ExceptionHandler(value = BusiException.class)
 	public JsonResult<?> handle(BusiException e) {
 		log(e);
-		return JsonResult.error(e.getMessage());
+		return e.createJsonResult();
 	}
 
 	private static void log(Throwable e){

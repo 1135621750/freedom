@@ -41,6 +41,8 @@
         <jwt.version>3.2.0</jwt.version>
         <mybatis.version>1.3.2</mybatis.version>
         <pagehelper.version>4.0.0</pagehelper.version>
+        <ehcache.version>2.10.5</ehcache.version>
+        <commons-fileupload.version>1.3.1</commons-fileupload.version>
     </properties>
 
     <parent>
@@ -77,6 +79,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <!--ehcache缓存框架-->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${ehcache.version}</version>
         </dependency>
         <!--shiro-->
         <dependency>
@@ -177,6 +189,12 @@
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
             <version>${swagger2-ui.version}</version>
+        </dependency>
+        <!--上传-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileupload.version}</version>
         </dependency>
     </dependencies>
 

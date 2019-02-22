@@ -3,13 +3,15 @@ package com.freedom.admin.shiro;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.freedom.admin.utils.MyShiroException;
-import com.freedom.core.config.Constant;
+import com.freedom.core.config.MyYml;
 import com.freedom.core.result.JsonResult;
 import com.freedom.core.result.R;
-import com.freedom.core.result.ReturnType;
+import com.freedom.core.utils.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.UnauthorizedException;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,17 +27,26 @@ import java.io.IOException;
 @Slf4j
 public class SysFilter extends BasicHttpAuthenticationFilter {
 
-    @Override
+    /*@Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
-        HttpServletRequest req = (HttpServletRequest) request;
-        String authorization = req.getHeader(Constant.TOKE_NNAME);
+        String authorization = getToken((HttpServletRequest) request);
         return authorization != null;
+    }*/
+//TODO 请求的验证还没做
+    @Override
+    protected AuthenticationToken createToken(ServletRequest servletRequest, ServletResponse servletResponse) {
+        //获取请求token
+        String token = getToken(WebUtils.toHttp(servletRequest));
+        if (StringUtils.isBlank(token)) {
+            return null;
+        }
+        return StringUtils.isBlank(token) ? null : new Token(token);
     }
+
 
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String authorization = httpServletRequest.getHeader(Constant.TOKE_NNAME);
+        String authorization = getToken((HttpServletRequest) request);
 
         Token token = new Token(authorization);
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
@@ -63,13 +74,15 @@ public class SysFilter extends BasicHttpAuthenticationFilter {
             log.error(ex.getMessage());
         }
     }
+
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-        if(((HttpServletRequest) request).getMethod().equals(RequestMethod.OPTIONS.name())){
+        //此处可以写一些验证（如请求路径验证）
+        /*if(((HttpServletRequest) request).getMethod().equals(RequestMethod.OPTIONS.name())){
             return true;
-        }
+        }*/
 
-        return false;
+        return true;
     }
 
     /**
@@ -90,4 +103,13 @@ public class SysFilter extends BasicHttpAuthenticationFilter {
         return super.preHandle(request, response);
     }
 
+
+    /**
+     * 获取请求的token
+     */
+    protected String getToken(HttpServletRequest request) {
+        //从header中获取token
+        String token = request.getHeader(SpringContextHolder.getBean(MyYml.class).getTokenName());
+        return StringUtils.isBlank(token) ? null : token;
+    }
 }

@@ -4,9 +4,12 @@ import com.freedom.core.config.Constant;
 import com.freedom.core.config.MyYml;
 import com.freedom.core.jwt.JWTUtil;
 import com.freedom.core.pojo.BaseModel;
+import com.freedom.core.utils.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -36,14 +39,16 @@ public class InjectionAspect {
     @Before("webLog()")
     public void deBefore(JoinPoint joinPoint) throws Throwable {
         String method = joinPoint.getSignature().getName();
-        if (!method.contains("add") && !method.contains("update") && !method.contains("delete")) {
+        if (!method.contains("add")
+                && !method.contains("update")
+                && !method.contains("delete")) {
             return;
         }
         // 接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         //获取请求token中的人员信息
-        String token = request.getHeader(Constant.TOKE_NNAME);
+        String token = request.getHeader(SpringContextHolder.getBean(MyYml.class).getTokenName());
 
         jwtUtil.verify(token);
         String id = jwtUtil.getId(token);
@@ -70,6 +75,7 @@ public class InjectionAspect {
                 base.setIsDelete(false);
                 base.setUpdateUser(new Long(id));
             }
+
 
         }
     }

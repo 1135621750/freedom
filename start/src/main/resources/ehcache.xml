@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+    <!--freedom的缓存配置-->
+
+    <!-- 磁盘缓存位置
+    <diskStore>当内存缓存中对象数量超过maxElementsInMemory时,将缓存对象写到磁盘缓存中(需对象实现序列化接口)
+    <diskStore path="">用来配置磁盘缓存使用的物理路径,Ehcache磁盘缓存使用的文件后缀名是*.data和*.index
+    -->
+    <diskStore path="java.io.tmpdir"/>
+
+    <!--
+    name缓存名称,cache的唯一标识(ehcache会把这个cache放到HashMap里)defaultCache为系统默认的缓存
+    eternal="false" 意味着该缓存会死亡
+    maxElementsInMemory内存缓存中最多可以存放的元素数量,若放入Cache中的元素超过这个数值,则有以下两种情况
+        若overflowToDisk=true,则会将Cache中多出的元素放入磁盘文件中
+        若overflowToDisk=false,则根据memoryStoreEvictionPolicy策略替换Cache中原有的元素
+    maxElementsOnDisk磁盘缓存中最多可以存放的元素数量,0表示无穷大
+    diskExpiryThreadIntervalSeconds磁盘缓存的清理线程运行间隔,默认是120秒
+    memoryStoreEvictionPolicy内存存储与释放策略,即达到maxElementsInMemory限制时,Ehcache会根据指定策略清理内存
+        共有三种策略,分别为LRU(Least Recently Used 最近最少使用)、LFU(Less Frequently Used最不常用的)、FIFO(first in first out先进先出)
+    -->
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            maxElementsOnDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+
+    <!-- 字典元素缓存 -->
+    <cache name="dictionary"
+           maxElementsInMemory="10000"
+           eternal="true"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           maxElementsOnDisk="10000000"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LRU">
+    </cache>
+</ehcache>

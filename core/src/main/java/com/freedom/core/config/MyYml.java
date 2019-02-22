@@ -32,6 +32,9 @@ public class MyYml {
     private String jwtHeader;
     //redis
     private Boolean redisOpen;
+    //文件上传路径
+    private String fileUploadPath;
+    private String tokenName;
 
 
 }

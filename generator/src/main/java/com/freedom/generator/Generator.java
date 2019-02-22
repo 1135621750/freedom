@@ -27,16 +27,17 @@ public class Generator {
     private static final String TEMPLATE_FILE_PATH = "D:\\webeclipse\\idea_ma\\freedom\\generator\\src\\main\\resources\\template";
 
     public static void main(String[] args){
-        getCode("sys_role","sys_menu");
+        getCode("sys_file");
     }
     public static void getCode(String... tableNames){
         for(String s : tableNames){
-            getJpa(s);
+            get(s);
         }
     }
     
-    //jpa查询
-    public static void getJpa(String tableName){
+    //生成入口
+    public static void get(String tableName){
+        //设置类型
         JavaBeanGenerator bean = new JavaBeanGenerator();
         List<Map<String,String>> list = new ArrayList<>();
         Map<String,String> map = new HashMap();

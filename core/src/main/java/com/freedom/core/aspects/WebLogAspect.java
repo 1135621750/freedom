@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.freedom.core.config.Constant;
 import com.freedom.core.config.MyYml;
 import com.freedom.core.pojo.BaseModel;
+import com.freedom.core.utils.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -49,7 +50,7 @@ public class WebLogAspect {
         HttpServletRequest request = attributes.getRequest();
         // 记录下请求内容
         log.info("-------------------请求开始-----------------");
-        log.info("请求头token : " + request.getHeader(Constant.TOKE_NNAME));
+        log.info("请求头token : " + request.getHeader(SpringContextHolder.getBean(MyYml.class).getTokenName()));
         log.info("请求路径是 : " + request.getRequestURL().toString());
         log.info("请求方式是 : " + request.getMethod());
         log.info("IP : " + request.getRemoteAddr());

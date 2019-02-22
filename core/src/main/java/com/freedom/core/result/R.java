@@ -2,6 +2,7 @@ package com.freedom.core.result;
 
 /**
  * 状态枚举
+ * 状态码规则,提示信息使用枚举名称后缀FAILURE,错误信息后缀ERROR
  */
 public enum R implements ReturnType {
 	/**
@@ -40,6 +41,9 @@ public enum R implements ReturnType {
 	 */
 	NO_FILE_NULL("401","NO_FILE_NULL","文件不能为空"),
 	NO_FILE_TYPE("402","NO_FILE_TYPE","不支持该文件类型"),
+	FILE_EXIST("403","FILE_EXIST","文件已存在"),
+	FILE_QUERY_FAILED("404","FILE_QUERY_FAILED","文件不存在"),
+	FILE_DOWNLOAD_FAILED("404","FILE_DOWNLOAD_FAILED","文件下载失败"),
 
 
 	PARAM_ERROR("406","PARAM_ERROR","参数错误或GET,POST错误"),
@@ -47,7 +51,7 @@ public enum R implements ReturnType {
 	ELETE_ERROR("1001","ELETE_ERROR","删除失败"),
 	UPDATE_ERROR("1002","UPDATE_ERROR","修改失败"),
 	SELECT_ERROR("1003","SELECT_ERROR","查询失败"),
-	CONTENT_TYPE("1012","CONTENT_TYPE","Content-Type类型错误")
+	CONTENT_TYPE_ERROR("1012","CONTENT_TYPE_ERROR","Content-Type类型错误")
 
 	;
 

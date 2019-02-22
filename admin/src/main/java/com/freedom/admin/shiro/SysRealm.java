@@ -83,6 +83,6 @@ public class SysRealm extends AuthorizingRealm {
             throw new MyShiroException(R.ACCOUNT_LOCKOUT);
         }
 
-        return new SimpleAuthenticationInfo(user, token, getName());
+        return new SimpleAuthenticationInfo(token, token, getName());
     }
 }

@@ -26,7 +26,7 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
-      enabled: true
+
 
 # 项目配置
 freedom:
@@ -51,3 +51,6 @@ freedom:
   jwtHeader: token
   # redis 是否开启
   redisOpen: false
+  # 本地文件上传路径
+  file-upload-path: upload #文件上传路径在freedom路径下的文件路径
+  token-name: Authorization

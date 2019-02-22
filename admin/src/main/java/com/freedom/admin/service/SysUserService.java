@@ -5,6 +5,7 @@ import com.freedom.admin.mapper.SysUserMapper;
 import com.freedom.admin.model.SysUser;
 import com.freedom.core.pojo.BaseService;
 import com.freedom.core.pojo.PageUtils;
+import com.freedom.core.utils.IdWorker;
 import com.freedom.core.utils.Utils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -47,7 +48,7 @@ public class SysUserService extends BaseService{
     @Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
     public void add(SysUser sysUser) throws Exception{
         if(ObjectUtil.isNull(sysUser.getId())){
-            sysUser.setId(super.getNextId());
+            sysUser.setId(IdWorker.getInstance().nextId());
         }
         Utils.getRandomString(6);
         sysUserMapper.insertDynamic(sysUser);

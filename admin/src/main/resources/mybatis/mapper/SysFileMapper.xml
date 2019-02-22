@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.freedom.admin.mapper.SysFileMapper">
+
+    <resultMap id="BaseResultMap" type="com.freedom.admin.model.SysFile">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="path" jdbcType="VARCHAR" property="path" />
+        <result column="mime" jdbcType="VARCHAR" property="mime" />
+        <result column="size" jdbcType="BIGINT" property="size" />
+        <result column="md5" jdbcType="VARCHAR" property="md5" />
+        <result column="sha1" jdbcType="VARCHAR" property="sha1" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+        <result column="create_user" jdbcType="BIGINT" property="createUser" />
+        <result column="is_delete" jdbcType="BIT" property="isDelete" />
+        <result column="status" jdbcType="BIT" property="status" />
+    </resultMap>
+
+    <select id="isFile" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_file
+        WHERE sha1 = #{sha1}
+
+    </select>
+
+    <sql id="Base_Column_List">
+            id,
+            name,
+            path,
+            mime,
+            size,
+            md5,
+            sha1,
+            create_time,
+            update_time,
+            update_user,
+            create_user,
+            is_delete,
+            status
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_file WHERE id = #{id}
+    </select>
+
+    <select id="findByListDynamic" resultMap="BaseResultMap" parameterType="com.freedom.admin.model.SysFile">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_file
+        <where>
+            <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+            <if test="name != null"> AND name = #{name,jdbcType=VARCHAR} </if>
+            <if test="path != null"> AND path = #{path,jdbcType=VARCHAR} </if>
+            <if test="mime != null"> AND mime = #{mime,jdbcType=VARCHAR} </if>
+            <if test="size != null"> AND size = #{size,jdbcType=BIGINT} </if>
+            <if test="md5 != null"> AND md5 = #{md5,jdbcType=VARCHAR} </if>
+            <if test="sha1 != null"> AND sha1 = #{sha1,jdbcType=VARCHAR} </if>
+            <if test="createTime != null"> AND create_time = #{createTime,jdbcType=TIMESTAMP} </if>
+            <if test="updateTime != null"> AND update_time = #{updateTime,jdbcType=TIMESTAMP} </if>
+            <if test="updateUser != null"> AND update_user = #{updateUser,jdbcType=BIGINT} </if>
+            <if test="createUser != null"> AND create_user = #{createUser,jdbcType=BIGINT} </if>
+            <if test="isDelete != null"> AND is_delete = #{isDelete,jdbcType=BIT} </if>
+            <if test="status != null"> AND status = #{status,jdbcType=BIT} </if>
+        </where>
+    </select>
+
+    <insert id="insertListModel" parameterType="java.util.List">
+        insert into sys_file
+        (
+            id,
+            name,
+            path,
+            mime,
+            size,
+            md5,
+            sha1,
+            create_time,
+            update_time,
+            update_user,
+            create_user,
+            is_delete,
+            status
+        )
+        <trim prefix="values ">
+            <foreach collection="list" item="item" index="index"
+                     separator=",">
+                (
+                #{item.id,jdbcType=BIGINT},
+                #{item.name,jdbcType=VARCHAR},
+                #{item.path,jdbcType=VARCHAR},
+                #{item.mime,jdbcType=VARCHAR},
+                #{item.size,jdbcType=BIGINT},
+                #{item.md5,jdbcType=VARCHAR},
+                #{item.sha1,jdbcType=VARCHAR},
+                #{item.createTime,jdbcType=TIMESTAMP},
+                #{item.updateTime,jdbcType=TIMESTAMP},
+                #{item.updateUser,jdbcType=BIGINT},
+                #{item.createUser,jdbcType=BIGINT},
+                #{item.isDelete,jdbcType=BIT},
+                #{item.status,jdbcType=BIT}
+                )
+            </foreach>
+        </trim>
+    </insert>
+
+    <insert id="insertDynamic" parameterType="com.freedom.admin.model.SysFile">
+        insert into sys_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            id,
+            </if>
+            <if test="name != null">
+            name,
+            </if>
+            <if test="path != null">
+            path,
+            </if>
+            <if test="mime != null">
+            mime,
+            </if>
+            <if test="size != null">
+            size,
+            </if>
+            <if test="md5 != null">
+            md5,
+            </if>
+            <if test="sha1 != null">
+            sha1,
+            </if>
+            <if test="createTime != null">
+            create_time,
+            </if>
+            <if test="updateTime != null">
+            update_time,
+            </if>
+            <if test="updateUser != null">
+            update_user,
+            </if>
+            <if test="createUser != null">
+            create_user,
+            </if>
+            <if test="isDelete != null">
+            is_delete,
+            </if>
+            <if test="status != null">
+            status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="mime != null">
+                #{mime,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                #{size,jdbcType=BIGINT},
+            </if>
+            <if test="md5 != null">
+                #{md5,jdbcType=VARCHAR},
+            </if>
+            <if test="sha1 != null">
+                #{sha1,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=BIT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateDynamic" parameterType="com.freedom.admin.model.SysFile">
+        update sys_file
+        <set>
+            <if test="name != null">
+            name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+            path = #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="mime != null">
+            mime = #{mime,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+            size = #{size,jdbcType=BIGINT},
+            </if>
+            <if test="md5 != null">
+            md5 = #{md5,jdbcType=VARCHAR},
+            </if>
+            <if test="sha1 != null">
+            sha1 = #{sha1,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+            update_user = #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+            create_user = #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="isDelete != null">
+            is_delete = #{isDelete,jdbcType=BIT},
+            </if>
+            <if test="status != null">
+            status = #{status,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
+        DELETE FROM sys_file WHERE id = #{id}
+    </delete>
+
+    <delete id="batchRemove">
+        DELETE FROM sys_file WHERE id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+        #{id}
+        </foreach>
+    </delete>
+
+</mapper>
