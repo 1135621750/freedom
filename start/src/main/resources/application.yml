@@ -27,6 +27,37 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
 
+mybatis:
+  type-aliases-package: com.freedom.*.model #各别项目不使用别名
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    #二级缓存全局设置，关于mybatis的二级缓存对于多个项目操作数据做缓存不和谐
+    cache-enabled: false
+    #当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载
+    aggressive-lazy-loading: true
+    #指定 MyBatis 如何自动映射 数据基表的列 NONE：不隐射　PARTIAL:部分  FULL:全部
+    auto-mapping-behavior: partial
+    #这是默认的执行类型  （SIMPLE: 简单； REUSE: 执行器可能重复使用prepared statements语句；BATCH: 执行器可以重复执行语句和批量更新）
+    default-executor-type: simple
+    #使用驼峰命名法转换字段
+    map-underscore-to-camel-case: true
+    #设置本地缓存范围 session:就会有数据的共享  statement:语句范围 (这样就不会有数据的共享 )
+    local-cache-scope: statement
+    #设置但JDBC类型为空时,某些驱动程序 要指定值,default:OTHER，插入空值时不需要指定类型
+    jdbc-type-for-null: null
+    #日志
+    log-prefix: dao.
+
+#分页
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    offset-as-page-num: true
+    row-bounds-with-count: true
+    page-size-zero: true
+
 
 # 项目配置
 freedom:
