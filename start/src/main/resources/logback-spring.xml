@@ -3,7 +3,22 @@
     <contextName>logback</contextName>
 
 
-    <include resource="org/springframework/boot/logging/logback/base.xml"/><!--彩色日志-->
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml"/>--><!--彩色日志-->
+
+    <!-- 彩色日志 -->
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+    <!--彩色日志格式-->
+    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss} [%X{userId}]){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(-&#45;&#45;){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
+    <!--Console 输出设置-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
 
     <!--按天生成日志 error日志输出文件-->
     <appender name="logFileError"
@@ -18,7 +33,7 @@
         </rollingPolicy>
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss} [%X{userId}]  %logger{36} -%msg%n
+                %d{yyyy-MM-dd HH:mm:ss} [%X{userId}] [%thread] %-5level %logger{50} - %msg%n
             </Pattern>
         </layout>
         <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
@@ -40,7 +55,7 @@
         </rollingPolicy>
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss} [%X{userId}]  %logger{36} -%msg%n
+                %d{yyyy-MM-dd HH:mm:ss} [%X{userId}] [%thread] %-5level %logger{50} - %msg%n
             </Pattern>
         </layout>
         <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印INFO日志 -->
@@ -63,7 +78,7 @@
         </rollingPolicy>
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss} [%X{userId}]  %logger{36} -%msg%n
+                %d{yyyy-MM-dd HH:mm:ss} [%X{userId}] [%thread] %-5level %logger{50} - %msg%n
             </Pattern>
         </layout>
         <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印DEBUG日志 -->
@@ -79,6 +94,7 @@
     </logger>
 
     <root level="info">
+        <appender-ref ref="console"/>
         <appender-ref ref="logFileError"/>
         <appender-ref ref="logFileInfo"/>
     </root>
